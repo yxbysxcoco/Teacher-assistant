@@ -19,6 +19,8 @@
 <script lang="ts">
 import { Component, Vue } from "vue-property-decorator"; // @ is an alias to /src
 import TodoItem from "../components/todo-item";
+import { State, Mutation } from "vuex-class";
+
 @Component({
   name: "todo",
   components: {
@@ -26,19 +28,14 @@ import TodoItem from "../components/todo-item";
   }
 })
 export default class Todo extends Vue {
+  @State("todoList") public list;
+  @Mutation("updateList") public updateList;
+  @Mutation("updateComplete") public handleComplete;
+
   public edittingIndex = -1;
-  public list = [
-    {
-      text: "学习",
-      complete: false
-    },
-    {
-      text: "学习1111",
-      complete: false
-    }
-  ];
+
   public handleSave({ index, content }) {
-    this.list[index].text = content;
+    this.updateList({ index, content });
     this.handleCancel();
   }
 
@@ -47,9 +44,6 @@ export default class Todo extends Vue {
   }
   public handleCancel() {
     this.edittingIndex = -1;
-  }
-  public handleComplete(index) {
-    this.list[index].complete = true;
   }
 }
 </script>
