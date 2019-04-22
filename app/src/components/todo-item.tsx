@@ -9,7 +9,6 @@ interface Item {
 @Component({
   name: "TodoItem",
 })
-
 export default class TodoItem extends Vue {
   @Prop(Object) public item!: Item;
   @Prop(Number) public index!: number;
